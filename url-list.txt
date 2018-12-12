@@ -1,0 +1,4 @@
+http://compositor.api.cnn.com/svc/mcs/v3/composites/sections
+http://config.outturner.com/mobile/android/prod/partner/edgepanel/edge-config.json
+http://config.outturner.com/mobile/android/prod/partner/edgepanel/edgepanelkill.json
+http://metrics.cnn.com/b/ss/cnn-adbp-apps-widgets/0/JAVA-3.2.5-AN/

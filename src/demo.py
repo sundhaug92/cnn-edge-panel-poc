@@ -28,35 +28,52 @@ def response(flow: http.HTTPFlow) -> None:
             "content_api_suffix": "/rows:10/start:0",
             "killswitch_url": "http://config.outturner.com/mobile/android/prod/partner/edgepanel/edgepanelkill.json",
             "domestic_sections": [
-                {"name":"Hacking", "segment":"/sections/cnn/homepage"},
-                {"name":"Hacking", "segment":"/sections/cnn/mobile-app-featured"},
-                {"name":"Hacking", "segment":"/sections/cnn/us"},
-                {"name":"Hacking", "segment":"/sections/cnn/world"},
-                {"name":"Hacking", "segment":"/sections/cnn/entertainment"},
-                {"name":"Hacking", "segment": "/sections/cnn/politics"},
-                {"name":"Hacking", "segment":"/sections/cnn/tech"},
-                {"name":"Hacking", "segment":"/sections/money/home"}
+                {"name": "Hacking", "segment": "/sections/cnn/homepage"},
+                {"name": "Hacking", "segment": "/sections/cnn/mobile-app-featured"},
+                {"name": "Hacking", "segment": "/sections/cnn/us"},
+                {"name": "Hacking", "segment": "/sections/cnn/world"},
+                {"name": "Hacking", "segment": "/sections/cnn/entertainment"},
+                {"name": "Hacking", "segment": "/sections/cnn/politics"},
+                {"name": "Hacking", "segment": "/sections/cnn/tech"},
+                {"name": "Hacking", "segment": "/sections/money/home"}
             ],
             "international_sections":
             [
-                {"name":"Hacking", "segment":"/sections/cnn/homepage_intl"},
-                {"name":"Hacking", "segment":"/sections/cnn/intl_mobile-app-featured"},
-                {"name":"Hacking", "segment":"/sections/cnn/us"},
-                {"name":"Hacking", "segment":"/sections/cnn/africa"},
-                {"name":"Hacking", "segment":"/sections/cnn/asia"},
-                {"name":"Hacking", "segment": "/sections/cnn/europe"},
-                {"name":"Hacking", "segment":"/sections/cnn/americas"},
-                {"name":"Hacking", "segment":"/sections/cnn/middleeast"},
-                {"name":"Hacking", "segment":"/sections/money/home-international"},
-                {"name":"Hacking", "segment":"/sections/cnn/style"},
-                {"name":"Hacking", "segment":"/sections/cnn/entertainment"},
-                {"name":"Hacking", "segment":"/sections/cnn/tech"},
-                {"name":"Hacking", "segment":"/sections/cnn/intl_travel"}
+                {"name": "Hacking", "segment": "/sections/cnn/homepage_intl"},
+                {"name": "Hacking", "segment": "/sections/cnn/intl_mobile-app-featured"},
+                {"name": "Hacking", "segment": "/sections/cnn/us"},
+                {"name": "Hacking", "segment": "/sections/cnn/africa"},
+                {"name": "Hacking", "segment": "/sections/cnn/asia"},
+                {"name": "Hacking", "segment":  "/sections/cnn/europe"},
+                {"name": "Hacking", "segment": "/sections/cnn/americas"},
+                {"name": "Hacking", "segment": "/sections/cnn/middleeast"},
+                {"name": "Hacking", "segment": "/sections/money/home-international"},
+                {"name": "Hacking", "segment": "/sections/cnn/style"},
+                {"name": "Hacking", "segment": "/sections/cnn/entertainment"},
+                {"name": "Hacking", "segment": "/sections/cnn/tech"},
+                {"name": "Hacking", "segment": "/sections/cnn/intl_travel"}
             ],
             "enable_appstore_item": True
         }).encode()
     elif '/b/ss/cnn-adbp-apps-widgets/0/JAVA-3.2.5-AN/' in flow.request.path:
-        print('Got metrics', flow.request.query['pageName'], flow.request.query['CarrierName'], flow.request.query['DeviceName'], flow.request.query['OSVersion'])
+        print('Got metrics', flow.request.query['pageName'], flow.request.query['CarrierName'], flow.request.query['DeviceName'], flow.request.query['Resolution'], flow.request.query['OSVersion'], 'business unit', flow.request.query['businessunit'], 'widgets', flow.request.query['widgets'])
     elif '/mobile/android/prod/partner/edgepanel/edgepanelkill.json' in flow.request.path:
         j = json.loads(flow.response.content.decode())
-        flow.response.content = json.dumps(j + [{'highestVersion': '', 'specificVersion': '1.0.rc41', 'deviceModel': 'SM-G950F', 'liveDate': '2015-04-28 12:00:00', 'alertTitle': 'Upgrade Sun', 'alertMessage': 'An upd8 is available.', 'alertOKButtonTitle': 'Upgrade Nauw', 'alertCancelButtonTitle': 'Upgrade Laiter', 'numTimesIgnoreBetweenTrigger': 3, 'phoneWebPageUrl': 'http://cnn.com', 'shouldForceUpgrade': True, 'shouldUpgrade': True, 'appStoreURL': 'https://www.youtube.com/watch?v=AvAnfi8WpVE'}]).encode()
+        flow.response.content = json.dumps(j + \
+        [
+            {
+                'highestVersion': '1.0.rc40',
+                'specificVersion': '1.0.rc39',
+                'deviceModel': 'SM-G950F',
+                'liveDate': '2015-04-28 12:00:00',
+                'alertTitle': 'Upgrade Sun',
+                'alertMessage': 'An upd8 is available.',
+                'alertOKButtonTitle': 'Upgrade Nauw',
+                'alertCancelButtonTitle': 'Upgrade Laiter',
+                'numTimesIgnoreBetweenTrigger': 0,
+                'phoneWebPageUrl': 'http://cnn.com',
+                'shouldForceUpgrade': True,
+                'shouldUpgrade': True,
+                'appStoreURL': 'https://www.youtube.com/watch?v=AvAnfi8WpVE'
+            }
+        ]).encode()

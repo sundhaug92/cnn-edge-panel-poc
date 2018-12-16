@@ -22,10 +22,39 @@ def response(flow: http.HTTPFlow) -> None:
                     card['cuts'][cut_key]['url'] = replacement[2]
         flow.response.content = json.dumps(j).encode()
     elif '/mobile/android/prod/partner/edgepanel/edge-config.json' in flow.request.path:
-        j = json.loads(flow.response.content.decode())
-        for section in j['domestic_sections'] + j['international_sections']:
-            section['name'] = 'Hacking'
-        flow.response.content = json.dumps(j).encode()
+        flow.response.status_code = 200
+        flow.response.content = json.dumps({
+            "content_api_prefix": "http://compositor.api.cnn.com/svc/mcs/v3/composites",
+            "content_api_suffix": "/rows:10/start:0",
+            "killswitch_url": "http://config.outturner.com/mobile/android/prod/partner/edgepanel/edgepanelkill.json",
+            "domestic_sections": [
+                {"name":"Hacking", "segment":"/sections/cnn/homepage"},
+                {"name":"Hacking", "segment":"/sections/cnn/mobile-app-featured"},
+                {"name":"Hacking", "segment":"/sections/cnn/us"},
+                {"name":"Hacking", "segment":"/sections/cnn/world"},
+                {"name":"Hacking", "segment":"/sections/cnn/entertainment"},
+                {"name":"Hacking", "segment": "/sections/cnn/politics"},
+                {"name":"Hacking", "segment":"/sections/cnn/tech"},
+                {"name":"Hacking", "segment":"/sections/money/home"}
+            ],
+            "international_sections":
+            [
+                {"name":"Hacking", "segment":"/sections/cnn/homepage_intl"},
+                {"name":"Hacking", "segment":"/sections/cnn/intl_mobile-app-featured"},
+                {"name":"Hacking", "segment":"/sections/cnn/us"},
+                {"name":"Hacking", "segment":"/sections/cnn/africa"},
+                {"name":"Hacking", "segment":"/sections/cnn/asia"},
+                {"name":"Hacking", "segment": "/sections/cnn/europe"},
+                {"name":"Hacking", "segment":"/sections/cnn/americas"},
+                {"name":"Hacking", "segment":"/sections/cnn/middleeast"},
+                {"name":"Hacking", "segment":"/sections/money/home-international"},
+                {"name":"Hacking", "segment":"/sections/cnn/style"},
+                {"name":"Hacking", "segment":"/sections/cnn/entertainment"},
+                {"name":"Hacking", "segment":"/sections/cnn/tech"},
+                {"name":"Hacking", "segment":"/sections/cnn/intl_travel"}
+            ],
+            "enable_appstore_item": True
+        }).encode()
     elif '/b/ss/cnn-adbp-apps-widgets/0/JAVA-3.2.5-AN/' in flow.request.path:
         print('Got metrics', flow.request.query['pageName'], flow.request.query['CarrierName'], flow.request.query['DeviceName'], flow.request.query['OSVersion'])
     elif '/mobile/android/prod/partner/edgepanel/edgepanelkill.json' in flow.request.path:
